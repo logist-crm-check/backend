@@ -20,6 +20,23 @@ def weather_by_city(city_name):
                 return weather['data']['current_condition'][0]
             except(IndexError, TypeError):
                 return False
+        try:
+            result = requests.get(weather_url, params=params)
+            weather = result.json()
+        except(requests.RequestException):
+            return False
+        try:
+            result = requests.get(weather_url, params=params)
+            result.raise_for_status()
+            weather = result.json()
+        except(requests.RequestException):
+            return False
+        try:
+            result = requests.get(weather_url, params=params)
+            result.raise_for_status()
+            weather = result.json()
+        except(requests.RequestException, ValueError):
+            return False
     return False
 
 
