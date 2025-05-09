@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>{{ page_title }}</title>
+    </head>
+    <body>
+        <h1>
+            {% for ticket in tickets %}
+                Заявка: {{ ticket.ticket_type }}, номер {{ ticket.plate }}
+                {{ ticket.text }}
+            {% endfor %}
+        </h1>
+    
+    </body>
+</html>
+
