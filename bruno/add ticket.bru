@@ -1,0 +1,19 @@
+meta {
+  name: add ticket
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://127.0.0.1:5000/api/v1/tickets/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "ticket_type": "прицеп",
+    "plate": "А101АА19",
+    "text": "проверь на угон"
+  }
+}

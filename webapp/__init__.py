@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from webapp.model import db
-from datetime import datetime
+from datetime import datetime, UTC
 from webapp.model import db, Ticket, User
 from webapp.forms import LoginForm
 from flask_login import LoginManager
@@ -27,9 +27,13 @@ def create_app():
     
 
     @app.route('/')
+    @login_required
     def index():
         title = "logist crm"
-        return render_template('index.html', page_title=title, tickets=[])
+        tickets = Ticket.query.all()
+
+
+        return render_template('index.html', page_title=title, tickets=tickets)
     
     
     @app.route('/login')
@@ -62,5 +66,13 @@ def create_app():
         else:
            return 'Ты не админ!'
         
-    
+    @app.post("/api/v1/tickets/")
+    def add_ticket():
+        data = request.get_json()
+        ticket = Ticket(ticket_type=data["ticket_type"], plate=data["plate"], text=data["text"], created_at=datetime.now(tz=UTC))
+        db.session.add(ticket)
+        db.session.commit()
+        return {}, 204
+
+
     return app

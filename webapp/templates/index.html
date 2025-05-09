@@ -3,12 +3,13 @@
         <title>{{ page_title }}</title>
     </head>
     <body>
-        <h1>
+        <h1>Заявки</h1>
+        
             {% for ticket in tickets %}
-                Заявка: {{ ticket.ticket_type }}, номер {{ ticket.plate }}
-                {{ ticket.text }}
+                {{ ticket.ticket_type }}, номер {{ ticket.plate }} | {{ ticket.text }}
+                <br>
             {% endfor %}
-        </h1>
+        
     
     </body>
 </html>
